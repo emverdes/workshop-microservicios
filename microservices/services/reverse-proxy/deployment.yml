@@ -17,14 +17,23 @@ spec:
     spec:
       containers:
         - name: nodejs
-          image: <container registry>
+          image: <image-file>
           ports:
             - name: http
               containerPort: 8080
               protocol: TCP
           env:
             - name: NAME
-              value: <Nombre>
+              value: reverse-proxy
+          volumeMounts:
+            - name: site-config
+              mountPath: /usr/local/apache2/conf/sites/ 
+      volumes:
+        - name: site-config
+          configMap:
+          # Provide the name of the ConfigMap containing the files you want
+          # to add to the container
+            name: site-config
   strategy:
     type: RollingUpdate
     rollingUpdate:
