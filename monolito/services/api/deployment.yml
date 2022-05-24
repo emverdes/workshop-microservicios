@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: <Nombre>
+  namespace: taller
+  labels:
+    app: <Nombre>
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: <Nombre>
+  template:
+    metadata:
+      labels:
+        app: <Nombre>
+    spec:
+      containers:
+        - name: nodejs
+          image: <container registry>
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: NAME
+              value: <Nombre>
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+
+
+
+    

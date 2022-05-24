@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sites-config
+  namespace: workshop
+data:
+  reverse-proxy: |
+    <Virtualhost *:8080>
+        SSLProxyEngine On
+        ProxyPreserveHost On
+
+        ProxyPass / http://<service-url>/
+        ProxyPassReverse / http://<service-url>/
+    </VirtualHost>
